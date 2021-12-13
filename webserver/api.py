@@ -6,7 +6,7 @@ import pymysql
 
 
 engine = create_engine(
-      "mysql+pymysql://root:KQRy1saT6e6yP15M@localhost/Dashmote")
+      "mysql+pymysql://de:root@localhost/main")
 
 
 def openFile(fileName):
@@ -68,7 +68,7 @@ def collectOutlets(source):
     if source  == "tripadvisor_user":
         return "Outlets not presented in this table"
     else:
-        outletsQuery = f'SELECT DISTINCT id_outlet FROM Dashmote.{source}'
+        outletsQuery = f'SELECT DISTINCT id_outlet FROM main.{source}'
     returnList = []
     resultBrand = engine.execute(outletsQuery)
     for row in resultBrand:
@@ -94,7 +94,7 @@ def getBrands(brand):
     """
     
     brand = "'" + brand + "'"
-    getOutletsQuery = f"SELECT * FROM Dashmote.ubereats_menu \
+    getOutletsQuery = f"SELECT * FROM main.ubereats_menu \
         WHERE brand = {brand};"
     
     try:
@@ -132,11 +132,11 @@ def getMenuItems(price):
     """
     
     getMenuTripadvisorQuery = ("SELECT * "
-    "FROM Dashmote.tripadvisor_outlet "
+    "FROM main.tripadvisor_outlet "
     f"WHERE price_range_from > {price}")
     
     getMenuUberQuery = ("SELECT * "
-    "FROM Dashmote.ubereats_menu "
+    "FROM main.ubereats_menu "
     f"WHERE price > {price}")
     
     try:
