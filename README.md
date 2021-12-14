@@ -29,7 +29,7 @@ II. Then that, we need <b>transrofm data in a structured way</b>. After transfor
 III At <b>preprocessing</b> step we apply some some <b>custom processes</b>. Data is in relational form, so we use AWS RDS.<br>
 VI. Then, we can upload data to <b>delivery database</b>. Data is relational. We use AWS RDS for this.<br>
 2. After all transformation data in relational form. AWS RDS provides cost-efficient and resizable capacity while automating time-consuming administration tasks such as hardware provisioning, database setup, patching, and backups. This is a good option for our data. 
-3. Pandas .to_sql can handle DB modeling on it own.
+3. Pandas .to_sql can handle DB modeling on it own. Moreover, this is not final step, we will have more transformations. Data modeling consuming a lot of time, so I decided that this is not a priority, given that Pandas doing this totaly fine.
 
 4. AWS Lambda is a serverless, event-driven compute service that lets us run code. We can trigger Lambda from over 200 AWS services, that makes it a good choise for this king of operations. First instance (AWS Lambda) automaticly triggers when new appears in S3. <br>
 We can use same approach for other processing, for example triggering it after new data arriver or at time interval. Or we can trigger in mannauly. So I left names as trigger 1 and trigger 2.
