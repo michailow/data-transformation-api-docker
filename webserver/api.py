@@ -6,30 +6,26 @@ import pymysql
 
 
 engine = create_engine(
-      "mysql+pymysql://de:root@localhost/main")
+      "mysql+pymysql://de:root@localhost/devDB")
 
 
 def openFile(fileName):
-    
     """Opens json file
     
     :param fileName: directory with file
     :return: file data in json format
     """
-    
     with open(fileName) as f:
         file = json.load(f)
     return file
 
 
 def priceRange(priceRange):
-    
     """Adds new column to table with staring price
     
     :param priceRange: row with price range
     :return: staring price
     """
-    
     if type(priceRange) == str:
         price = priceRange.split(' - ')[0][1:]
         price = price.replace(",", "")
@@ -37,14 +33,12 @@ def priceRange(priceRange):
 
 
 def uploadData(fileName):
-    
     """Upload data to databese
     If this is tripadvisor_outlet, applies additional transformations
     
     :param fileName: directory with file
     :return: None
     """
-    
     file = openFile(fileName)
     normalizedData = pd.DataFrame(file)
     tableName = fileName.split(".")[0]
@@ -53,25 +47,18 @@ def uploadData(fileName):
         normalizedData['price_range_from'] = (normalizedData['price_range']
                                               .apply(lambda x:
                                                      priceRange(x)))
-
     normalizedData.to_sql(tableName, con=engine, if_exists='append')
         
 
-def collectOutlets(source):
+def executeQuery(query):
+    """Executes query and return results
     
-    """Query data to get all unique outlets
-    
-    :param source: table form with we want get list
-    :return: unique outlets
+    :param query: query as str ot tuple
+    :return: result as str
     """
-    
-    if source  == "tripadvisor_user":
-        return "Outlets not presented in this table"
-    else:
-        outletsQuery = f'SELECT DISTINCT id_outlet FROM main.{source}'
     returnList = []
-    resultBrand = engine.execute(outletsQuery)
-    for row in resultBrand:
+    result = engine.execute(query)
+    for row in result:
         returnList.append(str(row))
     return str(returnList)
     
@@ -86,83 +73,66 @@ def index():
 
 @app.route("/getBrands/<string:brand>", methods=["GET"])
 def getBrands(brand):
-    
     """GET outlets who sell certain brands
     
     :param brand: brand defined in the API call
     :return: query result OR error message
     """
-    
     brand = "'" + brand + "'"
-    getOutletsQuery = f"SELECT * FROM main.ubereats_menu \
+    getOutletsQuery = f"SELECT * FROM devDB.ubereats_menu \
         WHERE brand = {brand};"
-    
     try:
-        returnList = []
-        resultBrand = engine.execute(getOutletsQuery)
-        for row in resultBrand:
-            returnList.append(str(row))
-        return str(returnList)
+        return executeQuery(getOutletsQuery)
     except Exception as e:
         return str(e)
     
 
 @app.route("/getOutlets/<string:source>", methods=["GET"])
 def getOutlets(source):
-    
     """GET a list of outlets that have a presence in one specific source
     
     :param: source defined in the API call
     :return: query result OR error message
     """
-    
+    if source == "tripadvisor_user":
+        return "Outlets not presented in this table"
     try:
-        return collectOutlets(source)
+        outletsQuery = f'SELECT DISTINCT id_outlet FROM devDB.{source}'
+        return executeQuery(outletsQuery)
     except Exception as e:
         return str(e)
 
 
 @app.route("/getMenuItems/<int:price>", methods=["GET"])
 def getMenuItems(price):
-    
     """GET menu items above a certain price threshold
     
     :param: price threshold defined in the API call
     :return: query result OR error message
     """
-    
     getMenuTripadvisorQuery = ("SELECT * "
-    "FROM main.tripadvisor_outlet "
+    "FROM devDB.tripadvisor_outlet "
     f"WHERE price_range_from > {price}")
     
     getMenuUberQuery = ("SELECT * "
-    "FROM main.ubereats_menu "
+    "FROM devDB.ubereats_menu "
     f"WHERE price > {price}")
     
     try:
-        returnList = []
-        resultTripadvisor = engine.execute(getMenuTripadvisorQuery)
-        for row in resultTripadvisor:
-            returnList.append(str(row))
-            
-        resultTripadvisor = engine.execute(getMenuUberQuery)
-        for row in resultTripadvisor:
-            returnList.append(str(row))
-        
-        return(str(returnList))
+        menuTripadvisor = executeQuery(getMenuTripadvisorQuery)
+        menuUber = executeQuery(getMenuUberQuery)
+        return(menuTripadvisor + menuUber)
     except Exception as e:
         return str(e)
 
 
 @app.route("/postOutlet/<string:fileName>", methods=["POST"])
 def postOutlet(fileName):
-    
     """POST a new outlet
     
     :param: filename with outlet data
     :return success message or error message
     """
-    
     try:
         uploadData(fileName)
         successMessage = f'File {fileName} posted'
