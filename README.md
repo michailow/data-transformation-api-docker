@@ -35,4 +35,9 @@ VI. Then, we can upload data to <b>delivery database</b>. Data is relational. We
 We can use same approach for other processing, for example triggering it after new data arriver or at time interval. Or we can trigger in mannauly. So I left names as trigger 1 and trigger 2.
 ____
 ### Question 2
-In progress
+
+2. As a DE, I want to write clear documentation on what queries I used, which technologies I
+implemented and why I made those choices;<br>
+First of all, we need to implement some API. So I used Flash Python libraly because it great for these tasks and quite simple.<br>
+Data processing and quering made in Python wtih Pandas and sqlalchemy libraly. For me it is comfortable to keep all my operations in Python code.<br>
+After that, I Dockerrized app. And write YAML file to compose to it with MySQL server. MySQL is easier to use than Postgres, so this is my choise for this task.<br>
