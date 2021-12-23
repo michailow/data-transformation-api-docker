@@ -41,3 +41,20 @@ implemented and why I made those choices;<br>
 First of all, we need to implement some API. So I used Flash Python libraly because it great for these tasks and quite simple.<br>
 Data processing and quering made in Python wtih Pandas and sqlalchemy libraly. For me it is comfortable to keep all my operations in Python code.<br>
 After that, I Dockerrized app. And write YAML file to compose to it with MySQL server. MySQL is easier to use than Postgres, so this is my choise for this task.<br>
+
+_____
+### Docker start
+To start the app launc command "docker compose up"<br>
+![image](https://user-images.githubusercontent.com/53381140/147183498-276cc1c1-2a8d-4e94-895d-d1de9e77e2e5.png)<br>
+We can see that Images builded after we get respocne from Flask:<br>
+![image](https://user-images.githubusercontent.com/53381140/147183568-5fbe573d-4977-41ae-8b4c-537f085e2fcf.png)<br>
+_____
+### Testing
+Test that app is running.<br>
+Or app will be running on http://127.0.0.1:80 <br>
+Try to connect with Postman:<br>
+![image](https://user-images.githubusercontent.com/53381140/147183645-89054d31-ebd2-4eb3-8758-7f1098a67fb0.png)<br>
+Server running<br>
+Test connection with DB<br>
+![image](https://user-images.githubusercontent.com/53381140/147183686-d2db7853-8940-4843-a704-f5a611aafec6.png)<br>
+Something wrong. At the moment I have not figured out how to configure the ports between MySQL on Docker Compose and Python
