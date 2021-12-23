@@ -1,25 +1,27 @@
-version: '3.9'
+version: '1.1'
 services:
-    backend:
-        build:
-            context: .
-            dockerfile: Dockerfile
-        ports:
-          - 8088:5000
-        volumes:
-            - .:/app
-        depends_on:
-            - db
+    app:
+      build:
+        context: .
+        dockerfile: Dockerfile
+      ports:
+        - "80:80"
+      links:
+        - db
+      depends_on:
+        - db
 
     db:
-        image: mysql:latest
-        restart: always
-        environment:
-            MYSQL_DATABASE: devDB
-            MYSQL_USER: de
-            MYSQL_PASSWORD: root
-            MYSQL_ROOT_PASSWORD: root
-        volumes:
-            - .dbdata:/var/lib/mysql
-        ports:
-            - 33067:3306
+      image: mysql:latest
+      restart: unless-stopped
+      environment:
+        MYSQL_DATABASE: dashmote
+        MYSQL_USER: de
+        MYSQL_PASSWORD: root
+        MYSQL_ROOT_PASSWORD: root
+      volumes:
+      - .dbdata:/var/lib/mysql
+
+volumes:
+  mysql-data:
+    external: false

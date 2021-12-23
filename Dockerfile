@@ -1,7 +1,7 @@
 FROM python:3.9
-WORKDIR /app
-COPY requrements.txt ./
+WORKDIR ./app
+COPY requrements.txt .
 RUN pip install -r requrements.txt
-ADD ./webserver/api.py ./
-
-CMD ["python", "api.py"]
+COPY ./webserver/* ./
+EXPOSE 80
+ENTRYPOINT ["python", "./api.py"]
