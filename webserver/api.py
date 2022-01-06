@@ -18,13 +18,13 @@ def createApp():
     @app.route("/getBrands/<string:brand>", methods=["GET"])
     def getBrands(brand):
         """GET outlets who sell certain brands
-    
+
         :param brand: brand defined in the API call
         :return: query result OR error message
         """
-        brand = "'" + brand + "'"
+        brand = "'%%" + brand + "%%'"
         getOutletsQuery = f"SELECT * FROM dashmote.ubereats_menu \
-            WHERE brand = {brand};"
+            WHERE brand LIKE {brand};"
         try:
             return helper.executeQuery(getOutletsQuery, engine)
         except Exception as e:
