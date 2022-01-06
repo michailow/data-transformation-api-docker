@@ -88,6 +88,10 @@ def createApp():
     return app
 
 
-if __name__ == '__main__':
+def main():
     app = createApp()
     app.run(debug=True, host='127.0.0.1', port=80)
+
+
+if __name__ == '__main__':
+    main()
