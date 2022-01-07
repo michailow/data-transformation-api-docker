@@ -56,5 +56,6 @@ Try to connect with Postman:<br>
 ![image](https://user-images.githubusercontent.com/53381140/147183645-89054d31-ebd2-4eb3-8758-7f1098a67fb0.png)<br>
 Server running<br>
 Test connection with DB<br>
-![image](https://user-images.githubusercontent.com/53381140/147183686-d2db7853-8940-4843-a704-f5a611aafec6.png)<br>
-Something wrong. At the moment I have not figured out how to configure the ports between MySQL on Docker Compose and Python
+![image](https://user-images.githubusercontent.com/53381140/148603068-1d0d1982-a64b-4057-9649-cd991e4bc58b.png)<br>
+Web Server working properly.
+
