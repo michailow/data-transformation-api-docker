@@ -7,7 +7,7 @@ import helper
 def createApp():
     app = Flask(__name__)
     engine = create_engine(
-        "mysql+pymysql://root:root@db:3306/dashmote")
+        "mysql+pymysql://de:password@db:3306/dashmote")
 
 
     @app.route('/')
@@ -90,7 +90,7 @@ def createApp():
 
 def main():
     app = createApp()
-    app.run(debug=True, host='127.0.0.1', port=80)
+    app.run(debug=True, host='0.0.0.0', port=80)
 
 
 if __name__ == '__main__':

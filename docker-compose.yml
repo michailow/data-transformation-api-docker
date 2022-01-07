@@ -17,10 +17,14 @@ services:
       environment:
         MYSQL_DATABASE: dashmote
         MYSQL_USER: de
-        MYSQL_PASSWORD: root
+        MYSQL_PASSWORD: password
         MYSQL_ROOT_PASSWORD: root
+      ports:
+        - "3307:3306"
       volumes:
-      - .dbdata:/var/lib/mysql
+        - type: volume
+          source: mysql-data
+          target: /var/lib/mysql
 
 volumes:
   mysql-data:
