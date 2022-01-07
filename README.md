@@ -51,11 +51,11 @@ We can see that Images builded after we get respocne from Flask:<br>
 _____
 ### Testing
 Test that app is running.<br>
-Or app will be running on http://127.0.0.1:80 <br>
-Try to connect with Postman:<br>
+The app is running on http://127.0.0.1:80<br>
+Lets test app functions with POSTMAN:<br>
 ![image](https://user-images.githubusercontent.com/53381140/147183645-89054d31-ebd2-4eb3-8758-7f1098a67fb0.png)<br>
-Server running<br>
-Test connection with DB<br>
+Server is running<br>
+Lets check that App can reach MySQL Server<br>
 ![image](https://user-images.githubusercontent.com/53381140/148603068-1d0d1982-a64b-4057-9649-cd991e4bc58b.png)<br>
-Web Server working properly.
+The Web API is working properly.
 
