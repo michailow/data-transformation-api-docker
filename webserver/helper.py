@@ -1,18 +1,17 @@
 import json
 import pandas as pd
 import os
+from dotenv import load_dotenv
 
 
 def getCredentials():
-    """Check env variables and return credentials
-    Under construction
+    """Gets credentials from .env file
     
     :return: credentials
     """
-    #password = os.environ['PASSWORD']
-    #user = os.environ['USER']
-    user = 'de'
-    password = 'password'
+    load_dotenv()
+    user = os.getenv('USER')
+    password = os.getenv('PASSWORD')
     return f"mysql+pymysql://{user}:{password}@db:3306/dashmote"
 
 
