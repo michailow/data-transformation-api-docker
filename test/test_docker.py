@@ -10,6 +10,7 @@ def main():
     assert r.text == 'File tripadvisor_user.json posted',\
         'Failture with DB'
     print('Everything passed')
+    input()
 
 
 if __name__ == '__main__':
