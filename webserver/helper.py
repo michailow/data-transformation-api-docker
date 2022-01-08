@@ -1,5 +1,20 @@
 import json
 import pandas as pd
+import os
+
+
+def getCredentials():
+    """Check env variables and return credentials
+    Under construction
+    
+    :return: credentials
+    """
+    #password = os.environ['PASSWORD']
+    #user = os.environ['USER']
+    user = 'de'
+    password = 'password'
+    return f"mysql+pymysql://{user}:{password}@db:3306/dashmote"
+
 
 def openFile(fileName):
     """Opens json file

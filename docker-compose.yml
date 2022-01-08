@@ -16,9 +16,9 @@ services:
       restart: unless-stopped
       environment:
         MYSQL_DATABASE: dashmote
-        MYSQL_USER: de
-        MYSQL_PASSWORD: password
-        MYSQL_ROOT_PASSWORD: root
+        MYSQL_USER: ${USER}
+        MYSQL_PASSWORD: ${PASSWORD}
+        MYSQL_ROOT_PASSWORD: ${ROOT_PASSWORD}
       ports:
         - "3307:3306"
       volumes:

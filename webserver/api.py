@@ -6,8 +6,8 @@ import helper
 
 def createApp():
     app = Flask(__name__)
-    engine = create_engine(
-        "mysql+pymysql://de:password@db:3306/dashmote")
+    credentials = helper.getCredentials()
+    engine = create_engine(credentials)
 
 
     @app.route('/')
